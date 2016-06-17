@@ -1,0 +1,10 @@
+
+extends layout
+
+block content
+	h1 #{h1 ? h1 : title}
+	article!= article
+
+//- https://toster.ru/q/329511
+//-	:markdown-it
+//-		#{message}
