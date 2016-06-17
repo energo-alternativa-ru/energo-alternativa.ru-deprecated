@@ -1,0 +1,30 @@
+{
+  "description": "Сайт компании ООО «Альтернатива»",
+  "author": "Khusamov Sukhrob <khusamov@yandex.ru>",
+  "name": "khusamov-energo-alternativa-ru",
+  "license": "GPL-3.0",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:energo-alternativa/energo-alternativa.ru.git"
+  },
+  "engines": {
+    "node": "^6.2.0"
+  },
+  "dependencies": {
+    "load-pkg": "^3.0.1",
+    "commander": "^2.9.0",
+    "express": "~4.13.3",
+    "body-parser": "~1.14.0",
+    "jade": "^1.11.0",
+    "jsymfony-autoload": "~0.0.1",
+    "khusamov-nodejs": "*",
+    "lodash": "^4.11.2",
+    "multi-ini": "~0.5.2"
+  },
+  "bugs": {
+    "url": "https://github.com/energo-alternativa/energo-alternativa.ru/issues",
+    "email": "khusamov@yandex.ru"
+  }
+}
