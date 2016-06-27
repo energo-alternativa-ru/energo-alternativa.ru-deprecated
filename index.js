@@ -8,7 +8,7 @@ console.log("Версия приложения:", pkg.version);
 // Зависимости.
 
 let autoload = require("jsymfony-autoload");
-let path = require("path");
+
 require("khusamov-nodejs");
 
 //
@@ -39,6 +39,7 @@ if (program.config) {
 	let app = require("./app/express")(config);
 	
 	
+	app.locals.markdown = require("./app/markdown");
 	
 	
 	var port = normalizePort(process.env.PORT || "3000");

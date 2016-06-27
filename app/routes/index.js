@@ -5,20 +5,19 @@ let ini = require("ini");
 let fs = require("fs");
 let path = require("path");
 let express = require("express");
+
 let router = module.exports = express.Router();
 
-// https://www.npmjs.com/package/markdown-it
-// markdown надо перенести в app.locals и настройки все вынести в отдельный файл /app/markdown.js 
-let markdown = require("markdown-it")();
-markdown.use(require("markdown-it-footnote"));
 
 
 router.get("*", (req, res, next) => {
 	
+	let markdown = req.app.locals.markdown;
+	
+	let pathToPages = path.join(__dirname, "..", "pages");
 	
 	
-	
-	let indexMd = path.join(__dirname, "..", "pages", req.path, "index.md");
+	let indexMd = path.join(pathToPages, req.path, "index.md");
 	
 	let ok;
 	
