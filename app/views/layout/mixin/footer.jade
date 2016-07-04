@@ -1,0 +1,6 @@
+
+mixin footer
+	div= site.title
+	div!= site.copyright
+	div Сайт изготовлен в веб-студии #[a(href="http://dabudetsite.ru/") «ДаБудетСайт.Рф»]
+	div= `Контактное лицо: ${site.getMainPhone().phone}, ${site.getMainPhone().person}`

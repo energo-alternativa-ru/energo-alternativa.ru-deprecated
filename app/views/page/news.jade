@@ -1,0 +1,7 @@
+
+extends ../layout/regular
+include mixin/news
+
+block content
+	h1= page.h1
+	article: +news(page.content)

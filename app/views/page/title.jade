@@ -1,0 +1,18 @@
+
+extends ../layout/title
+include mixin/news
+include mixin/contacts
+
+block article
+	article!= page.content
+	
+block news
+	article
+		h2 Новости компании
+		+news(page.news)
+		div: a(href="/company/news") Остальные новости...
+	
+block contacts
+	article
+		h2 Контактная информация
+		+contacts(page.contacts)

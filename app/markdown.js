@@ -1,7 +1,8 @@
 
 "use strict";
 
-let markdown = require("markdown-it")();
-markdown.use(require("markdown-it-footnote"));
-
-module.exports = markdown;
+module.exports = app => {
+	let markdown = require("markdown-it")();
+	markdown.use(require("markdown-it-footnote"));
+	return markdown;
+};

@@ -1,4 +1,6 @@
 
+/* global Model */
+
 "use strict";
 
 let pkg = require("load-pkg").sync();
@@ -7,52 +9,75 @@ console.log("Версия приложения:", pkg.version);
 
 // Зависимости.
 
-let autoload = require("jsymfony-autoload");
-
 require("khusamov-nodejs");
-
-//
-
-let program = require("./app/commander");
-
-// Автозагрузка классов.
-
-//autoload.register("Khusamov", path.join(, "lib"));
-
-
-
-
+let autoload = require("jsymfony-autoload");
+let path = require("path");
 
 // Программа.
 
+let program = require("./app/commander");
+
 if (program.config) {
 	
-	// Конфигурационный файл.
+	Promise.resolve()
 	
-	//let config;
-	let config = require("./app/config")(program);
+	.then(none => {
+		// Конфигурационный файл.
+		return require("./app/config")(program);
+	})
 	
-	// Express.
+	.then(config => {
+		// Express.
+		let app = require("./app/express")(config);
+		app.locals.markdown = require("./app/markdown")(app);
+		app.locals.yaml = require("./app/yaml")(app);
+		
+		
+		
+		return app;
+	})
+	
+	.then(app => {
+		// Модели.
+		autoload.register("Model", path.join(__dirname, "app/models"));
+		
+		Model.page.YamlPage.markdown = app.locals.markdown;
+		Model.page.YamlPage.yaml = app.locals.yaml;
+		Model.Site.yaml = app.locals.yaml;
+		
+		
+		
+		/*app.locals.models = {
+			Site: Model.Site.init({
+				configPath: path.join(__dirname, "app/site.yaml")
+			}),
+			Page: Model.Page.init({
+				//path: path.join(__dirname, "app/pages"),
+				markdown: require("./app/markdown")
+			})
+		};*/
+		//app.locals.site = new Model.Site(path.join(__dirname, "app/site"));
+		return (
+			new Model.Site(path.join(__dirname, "app/site"))
+			.then(site => {
+				app.locals.site = site;
+				return app;
+			})
+		);
+	})
+	
+	.then(app => {
+		// Сервер.
+		var port = normalizePort(process.env.PORT || "3000");
+		require("./app/server")(app.listen(port));
+	})
+	
+	.catch(err => {
+		console.log(err);
+	});
 	
 	
-	
-	let app = require("./app/express")(config);
-	
-	
-	app.locals.markdown = require("./app/markdown");
-	
-	
-	var port = normalizePort(process.env.PORT || "3000");
-	app.set("port", port);
-	
-	
-	
-	
-	
-	require("./app/server")(app.listen(port));
-	
-	
-	
+
 }
 
 /**

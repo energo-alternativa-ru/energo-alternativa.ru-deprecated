@@ -1,8 +1,9 @@
-extends layout
+
+extends layout/index
 
 block content
-	h1= title
-	p= message
-	h2= error.status
+	h1= page.title
+	p= page.message
+	h2= page.error.status
 	h3 Содержимое стека:
-	pre #{error.stack}
+	pre #{page.error.stack}

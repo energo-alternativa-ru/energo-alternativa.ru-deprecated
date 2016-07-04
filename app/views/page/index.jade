@@ -1,9 +1,9 @@
 
-extends layout
+extends ../layout/regular
 
 block content
-	h1 #{h1 ? h1 : title}
-	article!= article
+	h1= page.h1
+	article!= page.content
 
 //- https://toster.ru/q/329511
 //-	:markdown-it

@@ -1,0 +1,7 @@
+
+include date
+
+mixin news(news)
+	each item in news
+		- let text = item.text.replace(/\{(.*)\}/, item.href ? `<a href='${item.href}'>$1</a>` : `$1`);
+		p #[+date(item.date)] &mdash; !{text}
