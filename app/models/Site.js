@@ -56,6 +56,14 @@ module.exports = class Site {
 		return this._homedir;
 	}
 	
+	get pagesdir() {
+		return path.join(this.homedir, "pages");
+	}
+	
+	get root() {
+		return this._root;
+	}
+	
 	constructor(homedir) {
 		let me = this, yaml = Model.Site.yaml;
 		me._homedir = homedir;
@@ -71,6 +79,12 @@ module.exports = class Site {
 			});
 			me._processDataPublic();
 			return me;
+		})
+		.then(site => {
+			return me.loadPageByUri("/").then(page => {
+				me._root = page;
+				return site;
+			});
 		});
 	}
 	
@@ -93,11 +107,25 @@ module.exports = class Site {
 	 */
 	loadPageByUri(uri) {
 		let me = this;
+		
+		console.log("loadPageByUri", uri)
+		
+		//me._loadedPages = me._loadedPages ? me._loadedPages : {};
+		//if (me._loadedPages[uri]) return Promise.resolve(me._loadedPages[uri]);
+		
+		
+		
+		
+		
 		return Site.findFirstExistingFile([
-			path.join(me.homedir, "pages", `${uri}.yaml`),
-			path.join(me.homedir, "pages", uri, "index.yaml")
+			path.join(me.pagesdir, `${uri}.yaml`),
+			path.join(me.pagesdir, uri, "index.yaml")
 		])
-		.then(filename => filename ? me.loadPage(filename) : null);
+		.then(filename => filename ? me.loadPage(filename) : null)
+		/*.then(page => {
+			me._loadedPages[uri] = page;
+			return page;
+		})*/;
 	}
 	
 	loadPage(filename) {

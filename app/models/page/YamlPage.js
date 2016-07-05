@@ -4,9 +4,18 @@
 "use strict";
 
 let fs = require("fs");
+let path = require("path");
 let _ = require("lodash");
 
 module.exports = class YamlPage extends Model.page.Page {
+	
+	get homedir() {
+		return path.dirname(this._filename);
+	}
+	
+	get pages() {
+		return this._pages;
+	}
 	
 	constructor(site, filename) {
 		return new Promise((resolve, reject) => {
@@ -24,6 +33,57 @@ module.exports = class YamlPage extends Model.page.Page {
 			super(site, data);
 			this._filename = filename;
 			return this._includeProcess(this);
+		})
+		/*.then(page => {
+			return this._loadChildPages().then(pages => {
+				this._pages = pages;
+				return page;
+			});
+		})*/;
+	}
+	
+	hasChildPages() {
+		return path.basename(this._filename, path.extname(this._filename)) == "index";
+	}
+	
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+	
+	_loadChildPages() {
+		let me = this;
+		if (!me.hasChildPages()) return Promise.resolve();
+		return new Promise((resolve, reject) => {
+			fs.readdir(me.homedir, (err, files) => {
+				if (err) reject(err); else resolve(files);
+			});
+		})
+		.then(files => {
+			let uriChildPages = [];
+			files.forEach(filename => {
+				if (path.basename(filename, path.extname(filename)) != "index") {
+					let fullname = path.join(me.homedir, filename);
+					uriChildPages.push(new Promise((resolve, reject) => {
+						fs.stat(fullname, (err, stats) => {
+							if (err) reject(err); else resolve(stats.isDirectory());
+						});
+					})
+					.then(isDirectory => {
+						let uri = fullname.replace(me.site.pagesdir, "");
+						if (isDirectory) return uri;
+						return path.format({
+							dir: path.dirname(uri),
+							base: path.basename(uri, path.extname(uri, path.extname(uri)))
+						});
+					}));
+				}
+			});
+			return Promise.all(uriChildPages);
+		})
+		.then(uriChildPages => {
+			let pages = [];
+			uriChildPages.forEach(uri => {
+				pages.push(me.site.loadPageByUri(uri));
+			});
+			return Promise.all(pages);
 		});
 	}
 	
