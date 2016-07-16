@@ -34,6 +34,10 @@ module.exports = class Page {
 		return this._data.content;
 	}
 	
+	get href() {
+		return null;
+	}
+	
 	constructor(site, data) {
 		this._site = site;
 		this._data = data;

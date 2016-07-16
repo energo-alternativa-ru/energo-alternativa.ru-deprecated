@@ -17,6 +17,24 @@ module.exports = class YamlPage extends Model.page.Page {
 		return this._pages;
 	}
 	
+	get name() {
+		return path.basename(this._filename, path.extname(this._filename));
+	}
+	
+	get href() {
+		if (this.isRoot()) return "/";
+		if (this.hasChildPages()) return path.dirname(this._filename.replace(this.site.pagesdir, ""));
+		return this.parent ? path.join(this.parent.href, this.name) : path.join("/", this.name);
+	}
+	
+	get parent() {
+		return this._parent;
+	}
+	
+	set parent(page) {
+		this._parent = page;
+	}
+	
 	constructor(site, filename) {
 		return new Promise((resolve, reject) => {
 			fs.readFile(filename, "utf8", (err, data) => {
@@ -30,20 +48,39 @@ module.exports = class YamlPage extends Model.page.Page {
 			});
 		})
 		.then(data => {
+			
 			super(site, data);
 			this._filename = filename;
-			return this._includeProcess(this);
+			
+			
+			return this._includeProcess(data).then(data => {
+				
+				// Временная конструкция, потом надо что-то придумать, чтобы этим занимался только родительский класс.
+				// А вызов super(site, data) перенести сюда.
+				this._processDataPublic(); 
+				
+				return this;
+			});
+			
+			
+			
+			
+			
 		})
-		/*.then(page => {
+		.then(page => {
 			return this._loadChildPages().then(pages => {
 				this._pages = pages;
 				return page;
 			});
-		})*/;
+		});
 	}
 	
 	hasChildPages() {
-		return path.basename(this._filename, path.extname(this._filename)) == "index";
+		return this.name == "index";
+	}
+	
+	isRoot() {
+		return path.dirname(this._filename.replace(this.site.pagesdir, "")) == "/";
 	}
 	
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -84,6 +121,10 @@ module.exports = class YamlPage extends Model.page.Page {
 				pages.push(me.site.loadPageByUri(uri));
 			});
 			return Promise.all(pages);
+		})
+		.then(pages => {
+			pages.forEach(page => page.parent = me);
+			return pages;
 		});
 	}
 	

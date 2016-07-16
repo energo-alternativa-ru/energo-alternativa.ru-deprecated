@@ -83,6 +83,8 @@ module.exports = class Site {
 		.then(site => {
 			return me.loadPageByUri("/").then(page => {
 				me._root = page;
+				//global._root = page;
+				//console.log(me)
 				return site;
 			});
 		});
@@ -108,7 +110,7 @@ module.exports = class Site {
 	loadPageByUri(uri) {
 		let me = this;
 		
-		console.log("loadPageByUri", uri)
+		//console.log("loadPageByUri", uri)
 		
 		//me._loadedPages = me._loadedPages ? me._loadedPages : {};
 		//if (me._loadedPages[uri]) return Promise.resolve(me._loadedPages[uri]);
@@ -121,7 +123,13 @@ module.exports = class Site {
 			path.join(me.pagesdir, `${uri}.yaml`),
 			path.join(me.pagesdir, uri, "index.yaml")
 		])
-		.then(filename => filename ? me.loadPage(filename) : null)
+		.then(filename => {
+			
+			//console.log('Site.findFirstExistingFile===',filename)
+			
+			return filename ? me.loadPage(filename) : null;
+			
+		})
 		/*.then(page => {
 			me._loadedPages[uri] = page;
 			return page;
@@ -130,6 +138,9 @@ module.exports = class Site {
 	
 	loadPage(filename) {
 		let me = this;
+		
+		//console.log('loadPage===',filename)
+		
 		return new Model.page.YamlPage(me, filename).then(page => {
 			return me.preparePage(page);
 		});
@@ -144,6 +155,9 @@ module.exports = class Site {
 	preparePage(page) {
 		//let me = this;
 		//page.site = me;
+		
+		//console.log('preparePage===',page)
+		
 		return page;
 	}
 	

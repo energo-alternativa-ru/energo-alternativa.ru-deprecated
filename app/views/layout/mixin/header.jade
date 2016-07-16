@@ -1,6 +1,6 @@
 
-mixin menu(page)
-	span MENU
+include menu
 
 mixin header
-	span MENU
+	menu
+		+mainMenu(site.root)
