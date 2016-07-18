@@ -51,6 +51,7 @@ module.exports = class YamlPage extends Model.page.Page {
 			
 			super(site, data);
 			this._filename = filename;
+			this._pages = [];
 			
 			
 			return this._includeProcess(data).then(data => {
@@ -76,7 +77,7 @@ module.exports = class YamlPage extends Model.page.Page {
 	}
 	
 	hasChildPages() {
-		return this.name == "index";
+		return !!this.pages.length;
 	}
 	
 	isRoot() {
