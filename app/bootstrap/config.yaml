@@ -1,0 +1,20 @@
+
+server:
+  port: 80
+  log:
+    enable: true
+    file:
+      info: server-info.log
+      error: server-error.log
+
+database:
+  host: localhost
+  port: 3050
+  database: database
+  username: SYSDBA
+  password: masterkey
+  log:
+    enable: true
+    file:
+      info: database-info.log
+      error: database-error.log

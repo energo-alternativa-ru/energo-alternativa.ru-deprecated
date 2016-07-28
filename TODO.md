@@ -1,3 +1,12 @@
+
+
+Пока не правильно отрабатываются 404 и 500 ошибки.
+
+
+https://github.com/expressjs/vhostess
+https://github.com/expressjs/connect-markdown
+https://www.npmjs.com/package/express-subdomain
+
 Использовать наработки из репозитория:  
 https://github.com/energo-alternativa/site-template-bootstrap
 
