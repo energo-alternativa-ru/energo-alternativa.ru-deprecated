@@ -1,0 +1,25 @@
+
+extends /layout/regular
+include mixin/news
+
+append head
+	link(href="/css/news.css" rel="stylesheet")
+
+block content
+
+	each year in years
+		h2 #{year.value} год
+		//+news(year.news, "dateDayMonthString")
+		
+		
+		table.table.news
+			
+		
+			each item in year.news
+				- let text = item.text.replace(/\{(.*)\}/, item.href ? `<a href='${item.href}'>$1</a>` : `$1`);
+				tr
+					td.date: +dateDayMonthString(item.date)
+					td!= text
+				
+				
+		

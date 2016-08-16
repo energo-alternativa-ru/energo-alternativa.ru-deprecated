@@ -1,0 +1,28 @@
+
+mixin contacts(contacts)
+
+	p
+		b Адрес:
+		br
+		span= contacts.address
+	
+	if contacts.emails
+		p
+			b Электропочта:
+			br
+			each email, index in contacts.emails
+				span= email
+				if index < contacts.emails.length - 1
+					br
+	
+	if contacts.phones
+		p
+			b Телефон#{contacts.phones.length > 1 ? "ы": ""}:
+			br
+			each phone, index in contacts.phones
+				span= phone.number
+				if index < contacts.phones.length - 1
+					br
+	
+	p= contacts.schedule
+	p= contacts.workArea

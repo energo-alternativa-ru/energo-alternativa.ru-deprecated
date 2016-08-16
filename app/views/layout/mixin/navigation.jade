@@ -1,0 +1,81 @@
+
+append head
+	link(href="/css/layout/mixin/navigation.css" rel="stylesheet")
+
+mixin navigation(page)
+	//nav.navbar.navbar-default.navbar-custom.navbar-fixed-top.affix-top
+	nav.navbar.navbar-default.navbar-fixed-top
+		div(class=container)
+			div.navbar-header
+				button(type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar")
+					span.sr-only Toggle navigation
+					span.icon-bar
+					span.icon-bar
+					span.icon-bar
+				a.navbar-brand.lobster(href="/") Электролаборатория
+			div.navbar-collapse.collapse#navbar
+				ul.nav.navbar-nav
+					//+_lianchor("/", "Главная", page)
+					+_menu(page)
+				div.btn-group.navbar-right
+					div.btn-group.navbar-btn
+						button.btn.btn-info.dropdown-toggle(type="button" data-toggle="dropdown")
+							span.glyphicon.glyphicon-hand-right
+						ul.dropdown-menu(aria-labelledby="dropdownMenu1")
+							li.dropdown-header Запросить коммерческое предложение на:
+							li: a(href="#") #[i.glyphicon.glyphicon-flash] Услуги электролаборатории
+							li: a(href="#") #[i.glyphicon.glyphicon-alert] Энергетическое обследование
+							li: a(href="#") #[i.glyphicon.glyphicon-magnet] Покупку и установку оборудования CESS
+							li: a(href="#") #[i.glyphicon.glyphicon-wrench] Электромонтажные работы
+					div.btn-group.navbar-btn
+						button.btn.btn-danger
+							span.glyphicon.glyphicon-earphone
+							span +7 (495) 123-45-67
+				ul.nav.navbar-nav.navbar-right
+					li
+						a(href="#") Новости #[span.badge 43]
+
+mixin _menu(page)
+	each subpage, index in page.pages
+		if subpage.isGroup
+			li.dropdown-header= subpage.title
+				+_menu(subpage)
+			if index < page.pages.length - 1
+				li.divider(role="separator")
+		else
+			+_lianchor(subpage.href, subpage.title, subpage)
+				if subpage.pages.length
+					ul.dropdown-menu
+						+_menu(subpage)
+
+mixin _lianchor(href, text, page)
+	- let cls = [];
+	- if (href == req.path) cls.push("active");
+	- if (!page.isRoot && page.pages.length) cls.push(page.level > 1 ? "dropdown-submenu" : "dropdown");
+	if page.isDivider
+		li.divider(role="separator")
+	li(class=cls)
+		+_anchor(href, text, page)
+		block
+
+mixin _anchor(href, text, page)
+	if !page.isRoot && page.pages.length
+		a.dropdown-toggle(data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false")
+			+_icon(page)
+			span= text
+			if page.level <= 1
+				span.caret
+	else
+		if href == req.path
+			a
+				+_icon(page)
+				= text
+		else
+			a(href=href)
+				+_icon(page)
+				= text
+
+mixin _icon(page)
+	if page.icon
+		- let cls = `glyphicon-${page.icon}`;
+		i.glyphicon(class=cls)

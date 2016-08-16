@@ -1,0 +1,18 @@
+
+section.page-body {
+	padding-top: 51px;
+}
+
+
+
+
+
+/* Ссылки */
+
+section.page-body a {
+	text-decoration: underline;
+}
+
+section.page-body a:hover {
+	text-decoration: none;
+}

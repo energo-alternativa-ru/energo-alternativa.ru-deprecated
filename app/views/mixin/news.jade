@@ -1,0 +1,17 @@
+
+include date
+
+mixin news(news, format = "dateString")
+	each item in news
+		- let text = item.text.replace(/\{(.*)\}/, item.href ? `<a href='${item.href}'>$1</a>` : `$1`);
+		
+		case format
+			when "date"
+				p #[+date(item.date)] &mdash; !{text}
+			when "dateString"
+				p
+					span(style="color: silver;"): +dateString(item.date)
+					br
+					span!= text
+			when "dateDayMonthString"
+				p #[+dateDayMonthString(item.date)] &mdash; !{text}

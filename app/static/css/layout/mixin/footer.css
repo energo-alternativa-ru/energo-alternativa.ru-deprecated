@@ -1,0 +1,28 @@
+/* Подвал на всех страницах */
+
+footer {
+	background-color: #005000;
+	color: white;
+}
+
+footer a,
+footer a:hover {
+	color: white;
+}
+
+footer .contacts {
+	padding: 40px;
+	text-align: center;
+}
+
+footer .copyright {
+	color: green;
+	text-align: center;
+	padding: 30px;
+	background-color: #023a02;
+}
+
+footer .copyright a,
+footer .copyright a:hover {
+	color: green;
+}

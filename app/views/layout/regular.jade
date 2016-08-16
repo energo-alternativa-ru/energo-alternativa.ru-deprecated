@@ -1,0 +1,9 @@
+
+extends page
+include mixin/breadcrumbs
+
+block pageContent
+	div(class=container style="padding: 40px 8% 80px 8%;")
+		h1= page.h1
+		+breadcrumbs(page)
+		block content

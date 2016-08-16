@@ -1,47 +1,40 @@
 
 "use strict";
 
-const loadPackage = require("load-pkg");
-const bootstrap = require("./bootstrap");
+const path = require("path");
+const express = require("express");
 
-new Promise((resolve, reject) => {
-	loadPackage((err, pkg) => {
-		if (err) reject(err); else resolve(pkg);
-	});
-})
+const app = express();
 
-.then(pkg => {
-	const registry = {};
-	registry.package = pkg;
-	registry.homedir = __dirname;
-	registry.env = process.env.NODE_ENV || "development";
-	registry.path = {
-		express: __dirname + "/express"
-	};
-	return registry;
-})
+app.locals.pretty = true;
+app.set("view engine", "jade");
+app.set("views", path.join(__dirname, "views"));
+app.locals.basedir = app.get("views");
 
-.then(registry => {
-	console.log(registry.package.description);
-	console.log("Версия приложения:", registry.package.version);
-	return registry;
-})
+app.locals.models = require("./models")(__dirname + "/data");
 
-.then(registry => {
-	return bootstrap.processBootstrap(registry, {
-		onAfter: {
-			colors: function() {
-				if (registry.env == "development") {
-					console.log("Внимание, приложение работает в режиме разработки!".warn);
-				}
-			}
-		}
-	});
-})
+app.use(express.static(path.join(__dirname, "static")));
+app.use("/jquery", express.static(path.join(path.dirname(require.resolve("jquery/package.json")), "dist")));
+app.use("/bootstrap", express.static(path.join(path.dirname(require.resolve("bootstrap/package.json")), "dist")));
+app.use("/bootstrap/theme", express.static(path.join(path.dirname(require.resolve("bootswatch/package.json")), "united")));
+app.use("/startbootstrap", express.static(__dirname + "/../temp/startbootstrap-agency-gh-pages"));
 
-.catch(err => {
-	let message = "Фатальная ошибка в приложении:";
-	console.error(message.err || message);
-	console.error(err.stack);
-	process.exit(1);
+// https://startbootstrap.com/
+
+app.use((req, res, next) => {
+	req.site = req.app.locals.models.get("site");
+	next();
+});
+
+
+app.locals.models.get("site").getPageMap().forEach(page => {
+	const handler = require(path.join(__dirname, "controllers", page.controller));
+	app.get(page.path, (req, res, next) => { req.page = page; next(); }, handler);
+});
+
+app.use(require(path.join(__dirname, "controllers", "404")));
+app.use(require(path.join(__dirname, "controllers", "500")));
+
+app.listen(8080, function() {
+	console.log("Приложение запущено на порту 8080!");
 });

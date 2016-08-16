@@ -1,0 +1,23 @@
+
+extends layout/title
+include mixin/news
+include mixin/contacts
+
+block article
+	//article!= article
+	
+block news2
+	div.panel.panel-default
+		div.panel-heading
+			a(href="/company/news") Новости компании
+		div.panel-body
+			+news(news)
+
+	
+block contacts2
+	div.panel.panel-default
+		div.panel-heading
+			a(href="/company/contacts") Контактная информация
+		div.panel-body
+			+contacts(contacts)
+	

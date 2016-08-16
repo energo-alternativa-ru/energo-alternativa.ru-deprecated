@@ -1,0 +1,39 @@
+
+include /mixin/date
+
+append head
+	link(href="/css/layout/mixin/footer.css" rel="stylesheet")
+
+mixin footer
+	footer
+		div.contacts(class=container)
+			div.row
+				div.col-md-1
+				div.col-md-3
+					//Контактное лицо: #{site.phone.number}, #{site.phone.person}.
+					
+					if site.contacts.phones
+						h3 Телефон#{site.contacts.phones.length > 1 ? "ы": ""}
+						each phone, index in site.contacts.phones
+							span= phone.number
+							if index < site.contacts.phones.length - 1
+								br
+					
+				div.col-md-4
+					h3 Адрес компании
+					p= site.contacts.address
+				
+				div.col-md-3
+					if site.contacts.emails
+						h3 Электропочта
+						each email, index in site.contacts.emails
+							span= email
+							if index < site.contacts.emails.length - 1
+								br
+
+				div.col-md-1
+				
+				
+		div.copyright(class=container)
+			p &copy; #{site.created.getFullYear()}&ndash;#{new Date().getFullYear()} гг., #{site.title}, Москва, г. Зеленоград.
+			p(style="font-size: 80%;") Сайт изготовлен в веб-студии «#[a(href="http://dabudetsite.ru/") ДаБудетСайт.Рф]».

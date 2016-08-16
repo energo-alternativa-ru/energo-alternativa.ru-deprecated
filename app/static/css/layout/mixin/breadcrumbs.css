@@ -1,0 +1,10 @@
+
+.breadcrumb {
+	background-color: #ffffcf;
+}
+
+.breadcrumb a,
+.breadcrumb>.active,
+.breadcrumb>li+li:before {
+    color: black;
+}

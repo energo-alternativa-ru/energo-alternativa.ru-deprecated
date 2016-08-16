@@ -1,0 +1,14 @@
+
+append head
+	link(href="/css/layout/mixin/breadcrumbs.css" rel="stylesheet")
+
+mixin breadcrumbs(page)
+	ol.breadcrumb
+		each ancestor in page.ancestors
+			li
+				a(href=ancestor.href)
+					if ancestor.isRoot
+						i.glyphicon.glyphicon-home
+					else
+						span= ancestor.title
+		li.active= page.title

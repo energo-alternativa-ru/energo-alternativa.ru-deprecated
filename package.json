@@ -6,9 +6,9 @@
   "version": "0.0.1",
   "main": "app/index.js",
   "scripts": {
-    "start": "nodemon app/index.js",
+    "start": "NODE_PATH=./modules nodemon --debug app/index.js",
     "build": "",
-    "serve": "nodemon dist/index.js"
+    "serve": ""
   },
   "repository": {
     "type": "git",
@@ -23,11 +23,16 @@
   },
   "dependencies": {
     "body-parser": "^1.14.0",
+    "bootstrap": "^3.3.7",
+    "bootswatch": "^3.3.7",
     "colors": "^1.1.2",
     "commander": "^2.9.0",
+    "escape-html": "^1.0.3",
     "express": "~4.13.3",
     "ini": "^1.3.4",
     "jade": "^1.11.0",
+    "jquery": "^3.1.0",
+    "jquery-ui": "^1.12.0",
     "js-yaml": "^3.6.1",
     "jstransformer-markdown-it": "^0.2.3",
     "jsymfony-autoload": "^0.0.1",
@@ -35,9 +40,12 @@
     "load-pkg": "^3.0.1",
     "lodash": "^4.13.1",
     "markdown-it": "^6.0.5",
+    "markdown-it-container": "^2.0.0",
     "markdown-it-footnote": "^2.0.0",
     "multi-ini": "^0.5.2",
-    "pug": "^2.0.0-beta3"
+    "pug": "^2.0.0-beta3",
+    "supertest": "^2.0.0",
+    "vhost": "^3.0.2"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",

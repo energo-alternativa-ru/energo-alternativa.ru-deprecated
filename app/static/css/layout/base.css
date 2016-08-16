@@ -1,0 +1,16 @@
+
+@import url(https://fonts.googleapis.com/css?family=Merriweather);
+
+@import url(bootstrap.hack.css);
+
+/* Шрифты */
+
+* {
+	font-family: "Merriweather", "Times New Roman", Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6,
+.jumbotron p,
+nav span, nav a {
+	font-family: "Merriweather", "Times New Roman", Arial, sans-serif;
+}

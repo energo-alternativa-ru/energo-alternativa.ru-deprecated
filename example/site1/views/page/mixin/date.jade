@@ -1,3 +1,0 @@
-mixin date(date)
-	- let zerolead = num => `0${num}`.substr(-2,2);
-	= `${date.getFullYear()}-${zerolead(date.getMonth())}-${zerolead(date.getDate())}`

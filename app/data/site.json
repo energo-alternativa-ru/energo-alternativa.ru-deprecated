@@ -1,0 +1,111 @@
+{
+	
+	"title": "Компания ООО «Альтернатива»",
+	"model": "Site",
+	"view": "title",
+	"controller": "title",
+	
+	"/company": {
+		"title": "Компания",
+		"model": "Regular",
+		"view": "regular",
+		"controller": "regular",
+		"icon": "home",
+		"/about": {
+			"view": "about",
+			"controller": "about",
+			"icon": "info-sign",
+			"title": "Информация о компании"
+		},
+		"/news": {
+			"title": "Новости компании",
+			"view": "news",
+			"controller": "news"
+		},
+		"/documents": {
+			"title": "Свидетельства о регистрации"
+		},
+		"/contract-project": {
+			"title": "Типовой договор"
+		},
+		"/contract-project": {
+			"title": "Технический отчет"
+		},
+		"/job": {
+			"title": "Вакансии компании"
+		},
+		"/equipment": {
+			"title": "Наше оборудование"
+		},
+		"/suppliers": {
+			"title": "Наши поставщики"
+		},
+		"/contacts": {
+			"divider": true,
+			"title": "Контактная информация"
+		}
+	},
+	
+	"/services": {
+		"title": "Услуги",
+		"model": "Regular",
+		"view": "regular",
+		"controller": "regular",
+		"/for-legal-entities": {
+			"title": "Для юридических лиц",
+			"isGroup": true,
+			"/electical-laboratory": {
+				"title": "Электроизмерительная лаборатория"
+			},
+			"/energy-survey": {
+				"title": "Энергетическое обследование"
+			},
+			"/electrical-installation": {
+				"title": "Электромонтаж"
+			}
+		},
+		"/for-individuals": {
+			"title": "Для частных лиц",
+			"isGroup": true,
+			"/report-gas-boiler": {
+				"title": "Техотчет на газовый котел"
+			},
+			"/in-apartment": {
+				"title": "Замеры в квартире"
+			},
+			"/in-cottage": {
+				"title": "Обследование загородного коттеджа"
+			}
+		}
+	},
+	
+	"/price": {
+		"title": "Цены",
+		"model": "Regular",
+		"view": "regular",
+		"controller": "regular",
+		"/all": {
+			"title": "Прейскурант на наши услуги"
+		},
+		"/calculate": {
+			"title": "Калькулятор"
+		},
+		"/actions": {
+			"title": "Специальные предложения и акции"
+		},
+		"/market-zakupki-mos-ru": {
+			"title": "Оферты на портале поставщиков"
+		},
+		"/market-otc-ru": {
+			"title": "Оферты на ОТС-маркет"
+		}
+	},
+	
+	"/faq": {
+		"title": "Вопросы и ответы",
+		"model": "Regular",
+		"view": "regular",
+		"controller": "regular"
+	}
+
+}

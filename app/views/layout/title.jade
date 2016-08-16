@@ -1,0 +1,16 @@
+
+extends page
+
+append head
+	link(href="/css/layout/title.css" rel="stylesheet")
+	script(src="https://api-maps.yandex.ru/2.1/?lang=ru_RU")
+	script(src="/js/layout/title.js")
+
+block pageContent
+	//div(class=container)#mainposter
+	//	h1 Добро пожаловать 
+	//	h3 в электролабораторию ООО «Альтернатива»!
+	
+	//div(class=container)
+	//	h1 Наши объекты на карте
+	div(class=container style="padding: 0px;")#map

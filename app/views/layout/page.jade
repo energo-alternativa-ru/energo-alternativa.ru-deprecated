@@ -1,0 +1,18 @@
+
+extends base
+include mixin/navigation
+include mixin/footer
+
+append head
+	link(href="/css/layout/page.css" rel="stylesheet")
+
+block body
+	block pageNavigation
+		+navigation(site.root)
+	block pageBody
+		section.page-body
+			section.content
+				block pageContent
+			section.footer
+				block pageFooter
+					+footer

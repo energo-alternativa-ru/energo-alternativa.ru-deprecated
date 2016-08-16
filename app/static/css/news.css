@@ -1,0 +1,26 @@
+
+html {
+	height: 100%;
+}
+
+section.content {
+	background-image: url(https://pp.vk.me/c604420/v604420598/2022e/_vKmjz5qf6g.jpg);
+	background-repeat: no-repeat;
+	background-position: bottom right;
+	background-size: 50%;
+}
+
+h2 {
+	font-size: 20px;
+	color: green;
+}
+
+table.news td.date {
+	width: 130px;
+	text-align: right;
+}
+
+.table.news>tbody>tr>td, .table.news>tbody>tr>th, .table.news>tfoot>tr>td, 
+.table.news>tfoot>tr>th, .table.news>thead>tr>td, .table.news>thead>tr>th {
+	border-top-width: 0;
+}

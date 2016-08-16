@@ -1,0 +1,47 @@
+
+extends /layout/regular.2columns
+include mixin/news
+include mixin/contacts
+include mixin/date
+
+append head
+
+block mainColumn	
+	div
+		ul.nav.nav-tabs(role="tablist")
+			li.active(role="presentation")
+				a(href="#card" aria-controls="card" role="tab" data-toggle="tab") Карточка
+			li(role="presentation")
+				a(href="#home2" aria-controls="home2" role="tab" data-toggle="tab") Дополнительно
+		div.tab-content
+			div.tab-pane.active(role="tabpanel")#card
+				h3= card.title
+				div.well= card.description
+				table.table
+					tr
+						td Последнее обновление данных карточки
+						td: +dateString(card.updated)
+					for info, index in card.info
+						tr
+							td= info.title
+							td= info.value
+				div.alert.alert-warning= card.warning
+					
+					
+			div.tab-pane(role="tabpanel")#home2
+				
+		
+block sideColumn
+
+	div.panel.panel-default
+		div.panel-heading
+			a(href="/company/news") Новости компании
+		div.panel-body
+			+news(news)
+
+	div.panel.panel-default
+		div.panel-heading
+			a(href="/company/contacts") Контактная информация
+		div.panel-body
+			+contacts(contacts)
+	
