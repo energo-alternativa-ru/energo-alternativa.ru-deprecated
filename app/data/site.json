@@ -76,6 +76,18 @@
 			"/in-cottage": {
 				"title": "Обследование загородного коттеджа"
 			}
+		},
+		"/portfolio": {
+			"title": "Наше портфолио",
+			"isGroup": true,
+			"/objects": {
+				"title": "Объекты",
+				"view": "objects",
+				"controller": "objects"
+			},
+			"/customers": {
+				"title": "Заказчики"
+			}
 		}
 	},
 	

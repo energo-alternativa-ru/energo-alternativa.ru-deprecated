@@ -19,34 +19,45 @@ ymaps.ready(function() {
 	
 	
 	
-	var points = [{
-		coord: [55.81, 37.75],
-		options: {
-			balloonContentHeader: "ООО «Трансинжстрой»",
-			balloonContentBody: "Офис, замеры сопротивления",
-			balloonContentFooter: "Техотчет выдан 12 февраля 2016 года",
-			hintContent: "ООО «Трансинжстрой»"
-		}
-	}, {
-		coord: [55.73, 37.75],
-		options: {
-			balloonContentHeader: "ООО «Миратос»",
-			balloonContentBody: "Складские помещения, замеры сопротивления",
-			balloonContentFooter: "Техотчет выдан 12 февраля 2016 года",
-			hintContent: "ООО «Миратос»"
-		}
-	}];
 	
-	var collection = new ymaps.GeoObjectCollection();
+	// Поиск по карте
 	
-	points.forEach(function(point) {
-		collection.add(new ymaps.Placemark(point.coord, point.options));
+	
+	$.get("/api/alternativa-data").done(function(data, textStatus) {
+		
+		if (!data.points) throw new Error("Не удалось загрузить объекты для карты.");
+		
+		data.points.forEach(function(point) {
+
+			var coord = [point.latitude, point.longitude];
+			
+			var body = [];
+			body.push("Объект: " + point.object.name);
+			body.push("Заказчик: " + point.customer.name);
+			body.push("Адрес объекта: " + point.object.description);
+			var footer = [];
+			footer.push(`Сделано техотчетов: ${point.reports.length} шт.`);
+			footer.push("Последний техотчет выдан 12 февраля 2016 года");
+			
+			var color = point.customer.isIndividual ? "darkGreen" : "blue";
+			
+			myMap.geoObjects.add(new ymaps.Placemark(coord, {
+				balloonContentHeader: point.object.name,
+				balloonContentBody: body.join("<br/>"),
+				balloonContentFooter: footer.join("<br/>"),
+				hintContent: point.customer.name
+			}, {
+				preset: `islands#${color}Icon`
+			}));
+				
+
+			
+		});
+	}).fail(function() {
+		console.error("Ошибка при запросе /api/alternativa-data.");
+		console.error(arguments);
 	});
 	
-	
-	myMap.geoObjects.add(collection);
-	
-	collection.get(0).balloon.open();
 	
 });
 

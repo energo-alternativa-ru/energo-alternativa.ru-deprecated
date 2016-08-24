@@ -3,6 +3,7 @@
 
 const path = require("path");
 const express = require("express");
+require("express-resource");
 
 const app = express();
 
@@ -20,6 +21,12 @@ app.use("/bootstrap/theme", express.static(path.join(path.dirname(require.resolv
 app.use("/startbootstrap", express.static(__dirname + "/../temp/startbootstrap-agency-gh-pages"));
 
 // https://startbootstrap.com/
+
+
+var api = express();
+api.resource("alternativa-data", require("./api/alternativaData"));
+app.use("/api", api);
+
 
 app.use((req, res, next) => {
 	req.site = req.app.locals.models.get("site");
