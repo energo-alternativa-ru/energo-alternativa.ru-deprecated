@@ -5,12 +5,14 @@
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
-.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
+.navbar-default .navbar-nav > .open > a, 
+.navbar-default .navbar-nav > .open > a:focus, 
+.navbar-default .navbar-nav > .open > a:hover {
     background-color: #1a921a;
     color: yellow;
 }
 
-.navbar-default .navbar-nav>li>a,
+.navbar-default .navbar-nav > li > a,
 .navbar-default .navbar-brand {
 	color: yellow;
 }
@@ -23,7 +25,9 @@
 	color: yellow;
 }
 
-.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
+.navbar-default .navbar-nav > .active > a, 
+.navbar-default .navbar-nav > .active > a:focus, 
+.navbar-default .navbar-nav > .active > a:hover {
     color: green;
     background-color: yellow;
 }
@@ -31,4 +35,20 @@
 .navbar .badge {
 	background-color: yellow;
 	color: green;
+}
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus,
+.dropdown-submenu:hover > a,
+.dropdown-submenu:focus > a {
+	background-color: green;
+    background-image: none;
+}
+
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:hover,
+.dropdown-menu > .active > a:focus {
+	color: black;
+    background-color: #e2f1e2;
+    background-image: none;
 }

@@ -1,4 +1,5 @@
 
+Warning: missing space before text for line 7 of jade file "/home/ubuntu/workspace/app/views/regular.jade"
 
 Геокодирование: 
 --------------

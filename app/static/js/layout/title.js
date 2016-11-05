@@ -31,21 +31,26 @@ ymaps.ready(function() {
 
 			var coord = [point.latitude, point.longitude];
 			
+			var multi = point.reports.length > 1;
+			var textReportMade = `Сделано техотчетов: ${point.reports.length} шт.`;
+			
+			var isIndividual = point.customer.isIndividual;
+			
 			var body = [];
-			body.push("Объект: " + point.object.name);
 			body.push("Заказчик: " + point.customer.name);
 			body.push("Адрес объекта: " + point.object.description);
 			var footer = [];
-			footer.push(`Сделано техотчетов: ${point.reports.length} шт.`);
+			if (multi) footer.push(textReportMade);
 			footer.push("Последний техотчет выдан 12 февраля 2016 года");
 			
-			var color = point.customer.isIndividual ? "darkGreen" : "blue";
+			var color = isIndividual ? "darkGreen" : (multi ? "red" : "blue");
 			
 			myMap.geoObjects.add(new ymaps.Placemark(coord, {
-				balloonContentHeader: point.object.name,
+				iconContent: multi ? point.reports.length : null,
+				balloonContentHeader: `Объект: ${point.object.name}`,
 				balloonContentBody: body.join("<br/>"),
 				balloonContentFooter: footer.join("<br/>"),
-				hintContent: point.customer.name
+				hintContent: (isIndividual ? point.object.name : `${point.customer.name}<br/>${point.object.name}`) + (multi ? `<br/>${textReportMade}` : "")
 			}, {
 				preset: `islands#${color}Icon`
 			}));
