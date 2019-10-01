@@ -52,3 +52,7 @@
     background-color: #e2f1e2;
     background-image: none;
 }
+
+.dropdown-header {
+	color: green;
+}

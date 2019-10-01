@@ -6,7 +6,7 @@
   "version": "0.0.1",
   "main": "app/index.js",
   "scripts": {
-    "start": "NODE_PATH=./modules nodemon --debug app/index.js",
+    "start": "set NODE_PATH=./modules && nodemon --inspect app/index.js",
     "build": "",
     "serve": ""
   },

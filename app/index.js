@@ -15,12 +15,29 @@ app.locals.basedir = app.get("views");
 app.locals.models = require("./models")(__dirname + "/data");
 
 app.use(express.static(path.join(__dirname, "static")));
+
+
+
+/*const statics = {
+	"/jquery": path.join(path.dirname(require.resolve("jquery/package.json")), "dist"),
+	"/bootstrap": path.join(path.dirname(require.resolve("bootstrap/package.json")), "dist"),
+	"/bootstrap/theme": path.join(path.dirname(require.resolve("bootswatch/package.json")), "united"),
+	"/startbootstrap": __dirname + "/../temp/startbootstrap-agency-gh-pages" // https://startbootstrap.com/
+};
+
+for (let staticItem in statics) {
+	app.use(staticItem, express.static(statics[staticItem]));
+}*/
+
 app.use("/jquery", express.static(path.join(path.dirname(require.resolve("jquery/package.json")), "dist")));
 app.use("/bootstrap", express.static(path.join(path.dirname(require.resolve("bootstrap/package.json")), "dist")));
 app.use("/bootstrap/theme", express.static(path.join(path.dirname(require.resolve("bootswatch/package.json")), "united")));
 app.use("/startbootstrap", express.static(__dirname + "/../temp/startbootstrap-agency-gh-pages"));
 
-// https://startbootstrap.com/
+
+
+
+
 
 
 var api = express();

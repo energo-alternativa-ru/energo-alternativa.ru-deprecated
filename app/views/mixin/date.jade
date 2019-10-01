@@ -1,7 +1,7 @@
 
 mixin date(date)
 	- date = date || new Date();
-	- let zerolead = num => `0${num}`.substr(-2,2);
+	- let zerolead = num => `0${num}`.substr(-2, 2);
 	= `${date.getFullYear()}-${zerolead(date.getMonth() + 1)}-${zerolead(date.getDate())}`
 
 
