@@ -48,7 +48,7 @@
     "mssql": "^3.3.0",
     "multi-geocoder": "^0.1.5",
     "multi-ini": "^0.5.2",
-    "pug": "^2.0.0-beta3",
+    "pug": "^3.0.1",
     "supertest": "^2.0.0",
     "vhost": "^3.0.2"
   },
